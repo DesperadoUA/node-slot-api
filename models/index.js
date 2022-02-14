@@ -4,7 +4,8 @@ const {DataTypes} = Sequilize
 
 const sequelize = new Sequilize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     dialect: dbConfig.dialect,
-    host: dbConfig.HOST
+    host: dbConfig.HOST,
+    loogging: false
 })
 
 
@@ -19,6 +20,10 @@ db.Sequilize = Sequilize
 db.sequelize = sequelize
 
 db.users = require('./users')(sequelize, DataTypes)
+db.posts = require('./posts')(sequelize, DataTypes)
+
+db.users.hasOne(db.posts, {foreignKey: 'user_id', as: 'postDetail'})
+db.posts.belongsTo(db.users, {foreignKey: 'user_id'})
 
 db.sequelize.sync({force:false})
 .then(()=>{
@@ -26,3 +31,4 @@ db.sequelize.sync({force:false})
 }).catch((err) => {
     console.log('Error Re-sync')
 })
+module.exports = db

@@ -1,5 +1,6 @@
- import express from "express"
-
+ const express = require('express')
+ const userController = require('./controllers/userController')
+ 
  const PORT = 5000
  const app = express()
 
@@ -15,6 +16,19 @@
     })
  })
 
+ app.get('/add', userController.addUser)
+ app.get('/update', userController.updateUser)
+ app.get('/delete', userController.deleteUser)
+ app.get('/trancate', userController.deleteAllUser)
+ app.get('/query', userController.queryData)
+ app.get('/finder', userController.finderData)
+ app.get('/setter-getter', userController.setterGetter)
+ app.get('/validation', userController.validationCount)
+ app.get('/raw-query', userController.rawQuery)
+ app.get('/get-all', userController.fetch)
+ app.get('/one-to-one', userController.oneToOne)
+ app.get('/belongsTo', userController.belongsTo)
+ 
  function startApp(){
      try{
         app.listen(PORT, () => console.log(`SERVER START ON PORT ${PORT}`))

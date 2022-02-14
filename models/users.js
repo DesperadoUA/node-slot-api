@@ -1,12 +1,39 @@
 module.exports = (sequelize, DataTypes) => {
-    const Users = sequelize.define("users", {
-        name: DataTypes.STRING,
-        email: {
-            type: DataTypes.STRING,
-            defaultValue: 'test@gmail.com'
+    return sequelize.define("users", {
+            name: { 
+                type: DataTypes.STRING,
+                set(value) {
+                    this.setDataValue('name', value + ' new Value')
+                },
+                get(){
+                    return this.getDataValue('name') + ' XYZ ' + this.email
+                },
+                defaultValue: 'testUser',
+            },
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                unique: true
+            },
+            gender: {
+                type: DataTypes.STRING,
+                validate: {
+                   equals: {
+                     args: 'male',
+                     msg: 'Please enter only Male'
+                   },
+                   isIn:{
+                     args: [['male', 'femail']],
+                     msg: 'Please enter only Male or Femail'
+                   }
+                }
+            }
         },
-        gender: {
-            type: DataTypes.STRING
+        {
+            tableName: 'users',
+            //timestamps:false,
+            updatedAt: 'updated_at',
+            createdAt: 'created_at'
         }
-    })
+    )
 }
