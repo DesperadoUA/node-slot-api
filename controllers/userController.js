@@ -4,6 +4,8 @@ const {Op, QueryTypes} = require('sequelize')
 const posts = require('../models/posts')
 const ModelUsers = db.users
 const ModelPosts = db.posts
+const ModelTags = db.tags
+
 
 const addUser = async (req, res) => {
     const data = await ModelUsers.create({
@@ -224,6 +226,34 @@ const belongsTo = async(req, res) => {
       }
     res.status(200).json(response)
 }
+const oneToMany = async(req, res) => {
+    const data = await ModelUsers.findAll({
+        attributes: ['name', 'email'],
+        include: [{
+            model: ModelPosts,
+            as: 'postDetail',
+            attributes: ['content', 'name']
+        }],
+        where: {id:1}
+    })
+    const response = {
+        data
+      }
+    res.status(200).json(response)
+}
+const manyToMany = async(req, res) => {
+    const data = await ModelPosts.findAll({
+        attributes: ['title', 'name', 'content'],
+        include: [{
+            model:ModelTags,
+            attributes: ['name']
+        }]
+    })
+    const response = {
+        data
+      }
+    res.status(200).json(response)
+}
 module.exports = {
     addUser,
     updateUser,
@@ -236,5 +266,7 @@ module.exports = {
     rawQuery,
     oneToOne,
     belongsTo,
-    fetch
+    fetch,
+    oneToMany,
+    manyToMany
 }

@@ -28,6 +28,8 @@
  app.get('/get-all', userController.fetch)
  app.get('/one-to-one', userController.oneToOne)
  app.get('/belongsTo', userController.belongsTo)
+ app.get('/one-to-many', userController.oneToMany)
+ app.get('/many-to-many', userController.manyToMany)
  
  function startApp(){
      try{
