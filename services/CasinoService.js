@@ -6,7 +6,20 @@ const CategoryModel = db.casinoCategory
 const CardBuilder =  require('./CardBuilder')
 const store = require('./store')
 class Service {
-    static async getPublicDateByUrl(url) {
+    static async getPublicPostByUrl(url) {
+        const response = {
+            confirm: 'error',
+            body: {}
+        }
+        const MainModel = new PostModel('CASINO')
+        const data = await MainModel.showPublic(url)
+        if(data.length !== 0) {
+            response.confirm = 'ok'
+            response.body = CardBuilder.singleCasino(data[0])
+        }
+        return response
+    }
+    static async getPublicCategoryByUrl(url) {
         const response = {
             confirm: 'error',
             body: {}
