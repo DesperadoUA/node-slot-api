@@ -1,13 +1,8 @@
-module.exports = {
-    HOST: 'localhost',
+const dbConfig = {
+    DB: 'sequelize',
     USER: 'root',
     PASSWORD: '',
-    DB: 'sequelize',
     dialect: 'mysql',
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000
-    }
-  };
+    HOST: 'localhost'
+}
+module.exports = dbConfig
