@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
-    const CommonModel = require('./../core/CommonModel')(sequelize, DataTypes)
-    const Games = sequelize.define("games", {
+    const CommonModel = require('./../core/CommonSchema')(sequelize, DataTypes)
+    const Casinos = sequelize.define("casinos", {
             ...CommonModel,
             post_type: {
                 type: DataTypes.STRING,
-                defaultValue: 'games'
+                defaultValue: 'casino'
             },
             slug: {
                 type: DataTypes.STRING,
@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         {
-            tableName: 'games',
+            tableName: 'casinos',
             timestamps:false
         })
-    return Games
+    return Casinos
 }

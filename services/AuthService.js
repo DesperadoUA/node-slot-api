@@ -1,4 +1,4 @@
-const CardBuilder =  require('./CardBuilder')
+const CardBuilder =  require('../card_builder/UserCardBuilder')
 const crypto = require("crypto")
 const UsersModel = require('./../models/users/model')
 class Service {
@@ -7,13 +7,16 @@ class Service {
             confirm: 'error',
             body: {}
         }
+        const err = []
         const candidate = await UsersModel.checkLogin(login, password)
-        if(candidate.length !== 0) {
-            response.confirm = 'ok'
+        if(candidate.data.length !== 0 && candidate.confirm === 'ok') {
+            err.push(candidate.confirm)
             const token = crypto.randomBytes(16).toString("hex")
-            await UsersModel.setToken(candidate[0].id, token)
-            candidate[0].remember_token = token
-            response.body = CardBuilder.user(candidate[0])
+            const setToken = await UsersModel.setToken(candidate.data[0].id, token)
+            err.push(setToken.confirm)
+            candidate.data[0].remember_token = token
+            response.body = CardBuilder.user(candidate.data[0])
+            response.confirm = err.includes('error') ? 'error' : 'ok'
         }
         return response
     }
@@ -22,10 +25,13 @@ class Service {
             confirm: 'error',
             body: {}
         }
+        const err = []
         const candidate = await UsersModel.checkSession(id, session)
-        if(candidate.length !== 0) {
-            await UsersModel.setToken(candidate[0].id, '')
-            response.confirm = 'ok'
+        if(candidate.data.length !== 0 && candidate.confirm === 'ok') {
+            err.push(candidate.confirm)
+            const setToken = await UsersModel.setToken(candidate.data[0].id, '')
+            err.push(setToken.confirm)
+            response.confirm = err.includes('error') ? 'error' : 'ok'
         }
         return response
     }
@@ -35,7 +41,7 @@ class Service {
             body: {}
         }
         const candidate = await UsersModel.checkSession(id, session)
-        if(candidate.length !== 0) response.confirm = 'ok'
+        if(candidate.data.length !== 0 && candidate.confirm === 'ok') response.confirm = 'ok'
         return response
     }
 }

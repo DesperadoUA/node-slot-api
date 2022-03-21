@@ -81,5 +81,104 @@ module.exports = {
             "date": null,
             "review_text": "Казино предлагает большой ассортимент игр, что лично мне очень понравилось. К плюсам также могу отнести и то, что в зале присутствует поддержка популярных платежных систем. Без проблем получилось сделать депозит своей банковской картой. Поиграл в Невидимку и некоторые другие слоты НетЕнт, так как это мой любимый провайдер. Автоматы с низкой дисперсией и бонусами, поэтому выигрывать в них нетрудно:)"
         }
-    ]
+    ],
+    multipleMenu: [
+        {
+            src: "http://127.0.0.1:5000/img/default.png",
+            value_1: "/casino",
+            value_2: "Онлайн казино",
+            child: []
+        },
+        {
+            src: "http://127.0.0.1:5000/img/default.png",
+            value_1: "/bonuses",
+            value_2: "Бонусы",
+            child: [
+                {
+                    value_1: "/type-bonus/cashback",
+                    value_2: "Cashback"
+                },
+                {
+                    value_1: "/type-bonus/reload",
+                    value_2: "Reload"
+                },
+                {
+                    value_1: "/type-bonus/vip-predlozheniya",
+                    value_2: "VIP-предложения"
+                },
+                {
+                    value_1: "/type-bonus/bezdepozitnyy-bonus",
+                    value_2: "Бездепозитный бонус"
+                },
+                {
+                    value_1: "/type-bonus/bonus-na-vtoroy-depozit",
+                    value_2: "Бонус на второй депозит"
+                },
+                {
+                    value_1: "/type-bonus/depozitnyy-bonus",
+                    value_2: "Депозитный бонус"
+                },
+                {
+                    value_1: "/type-bonus/paket-bonusov",
+                    value_2: "Пакет бонусов"
+                },
+                {
+                    value_1: "/type-bonus/privetstvennyy-bonus",
+                    value_2: "Приветственный бонус"
+                },
+                {
+                    value_1: "/type-bonus/frispiny",
+                    value_2: "Фриспины"
+                },
+                {
+                    value_1: "/type-bonus/drugie",
+                    value_2: "Другие"
+                }
+            ]
+        },
+        {
+            src: "http://127.0.0.1:5000/img/default.png",
+            value_1: "/games",
+            value_2: "Игры",
+            child: [
+                    {
+                        value_1: "/games/videopoker",
+                        value_2: "Видеопокер"
+                    },
+                    {
+                        value_1: "/games/igrovye-avtomaty",
+                        value_2: "Слоты"
+                    },
+                    {
+                        value_1: "/games/kartochnye-igry",
+                        value_2: "Карточные игры"
+                    },
+                    {
+                        value_1: "/games/drugie-igry",
+                        value_2: "Игровые автоматы от Slototop"
+                    },
+                    {
+                        value_1: "/games/leterei",
+                        value_2: "Лотереи"
+                    },
+                    { 
+                        value_1: "/games/ruletki",
+                        value_2: "Рулетки"
+                    }
+                ]
+        }
+    ],
+    menu: [
+        {
+            src: "http://127.0.0.1:5000/img/default.png",
+            value_1: "test ua",
+            value_2: "test ua"
+        },
+        {
+            src: "http://127.0.0.1:5000/img/default.png",
+            value_1: "test 1 ua",
+            value_2: "test 2 ua"
+        }
+    ],
+    img: 'http://127.0.0.1:5000/img/default.png'
 }

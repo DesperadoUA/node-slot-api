@@ -20,6 +20,9 @@ db.Sequilize = Sequilize
 db.sequelize = sequelize
 
 db.users = require('./users')(sequelize, DataTypes)
+db.settings = require('./settings')(sequelize, DataTypes)
+db.options = require('./options')(sequelize, DataTypes)
+db.pages = require('./page')(sequelize, DataTypes)
 
 //---  Casino ---//
 db.casinos = require('./casino')(sequelize, DataTypes)
@@ -36,6 +39,19 @@ db.casinoCategory.belongsToMany(db.casinos, {through: 'casino_category_relatives
 //---  Casino End ---//
 //---  Games ---//
 db.games = require('./game')(sequelize, DataTypes)
+db.gameMeta = require('./game/meta')(sequelize, DataTypes)
+db.gameCategory = require('./game/category')(sequelize, DataTypes)
+db.gameCategoryRelatives = require('./game/category_relatives')(sequelize, DataTypes)
+db.gameCasinoRelatives = require('./game/casino_relatives')(sequelize, DataTypes)
+
+db.games.hasOne(db.gameMeta, {onDelete: 'CASCADE', foreignKey: 'post_id'})
+db.gameMeta.belongsTo(db.games, {foreignKey: 'post_id'})
+
+db.games.belongsToMany(db.gameCategory, {through: 'game_category_relatives', foreignKey: 'post_id', onDelete: 'CASCADE'})
+db.gameCategory.belongsToMany(db.games, {through: 'game_category_relatives', foreignKey: 'relative_id', onDelete: 'CASCADE'})
+
+db.games.belongsToMany(db.casinos, {through: 'game_casino_relatives', foreignKey: 'post_id', onDelete: 'CASCADE'})
+db.casinos.belongsToMany(db.games, {through: 'game_casino_relatives', foreignKey: 'relative_id', onDelete: 'CASCADE'}) 
 //--- Games End ----//
 db.sequelize.sync({force:false})
     .then(()=>{

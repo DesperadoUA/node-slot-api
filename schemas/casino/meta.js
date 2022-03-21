@@ -49,5 +49,6 @@ module.exports = (sequelize, DataTypes) => {
             tableName: 'casino_meta',
             timestamps:false
         })
-    return CasinoMeta
+    CasinoMeta.removeAttribute('id');
+    return CasinoMeta 
 }
